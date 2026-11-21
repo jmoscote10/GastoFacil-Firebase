@@ -1,17 +1,47 @@
-# gasto_facil
+# GastoFácil – Firebase
 
-A new Flutter project.
+Aplicación móvil en Flutter para registrar y controlar ingresos y gastos personales.
+Unidad 3 de Computación Móvil: persistencia remota, autenticación y sincronización.
 
-## Getting Started
+## Tecnologías
 
-This project is a starting point for a Flutter application.
+- Flutter y Dart
+- Firebase Authentication (correo y contraseña)
+- Cloud Firestore (base de datos remota)
 
-A few resources to get you started if this is your first Flutter project:
+## Colecciones en Firestore
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+| Colección    | Campos principales |
+|--------------|--------------------|
+| `users`      | uid, nombre, email, fechaRegistro |
+| `categories` | id, userId, nombre, tipo, fechaCreacion |
+| `movements`  | id, userId, tipo, valor, categoriaId, categoriaNombre, descripcion, fechaMovimiento, fechaCreacion, fechaActualizacion |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Cada documento guarda el `userId` del dueño. Las contraseñas no se guardan en
+Firestore; las administra Firebase Authentication.
+
+## Pantallas
+
+1. Inicio de sesión
+2. Registro de usuario
+3. Inicio (saldo, ingresos, gastos y últimos movimientos)
+4. Historial (búsqueda y filtros en tiempo real)
+5. Registro de movimiento
+6. Detalle del movimiento (editar y eliminar con confirmación)
+7. Edición del movimiento
+8. Categorías (gestión: crear, editar y eliminar)
+
+## Seguridad
+
+Las reglas están en [`firestore.rules`](firestore.rules):
+
+- Sin sesión no se puede leer ni escribir.
+- Cada usuario solo puede leer y modificar los documentos cuyo `userId`
+  coincide con su `request.auth.uid`.
+
+## Ejecutar
+
+```bash
+flutter pub get
+flutter run
+```
