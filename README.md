@@ -3,6 +3,13 @@
 Aplicación móvil en Flutter para registrar y controlar ingresos y gastos personales.
 Unidad 3 de Computación Móvil: persistencia remota, autenticación y sincronización.
 
+## Autores
+
+- Jesús Moscote Fernández
+- Andrés Moreno Cuentas
+
+Universidad de la Costa (CUC) – Computación Móvil, 2026.
+
 ## Tecnologías
 
 - Flutter y Dart
