@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // Si todo sale bien, ControlSesion abre el inicio automáticamente.
     } catch (error) {
       if (mounted) {
-        mostrarMensaje(context, AuthService.mensajeError(error), colorGasto);
+        mostrarMensaje(context, AuthService.mensajeError(error), colorError);
       }
     }
 
@@ -63,18 +63,14 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              const Icon(
-                Icons.account_balance_wallet,
-                size: 70,
-                color: colorPrincipal,
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                nombreApp,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: colorPrincipal,
+              // Logo de GastoFácil (ya incluye el nombre de la app).
+              Image.asset(
+                rutaLogo,
+                height: 150,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.account_balance_wallet,
+                  size: 70,
+                  color: colorVerde,
                 ),
               ),
               const Text(

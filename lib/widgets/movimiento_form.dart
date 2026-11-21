@@ -103,19 +103,41 @@ class _MovimientoFormState extends State<MovimientoForm> {
     }
   }
 
+  // Selector Ingreso / Gasto con el estilo del segundo corte:
+  // fondo gris y la opción elegida en verde claro o rosado.
   Widget chipTipo(String tipo, Color color) {
+    bool seleccionado = tipoSeleccionado == tipo;
+    bool esIngreso = tipo == 'Ingreso';
+
     return Expanded(
-      child: ChoiceChip(
-        label: Text(tipo),
-        selected: tipoSeleccionado == tipo,
-        selectedColor: color.withValues(alpha: 0.25),
-        onSelected: (seleccionado) {
+      child: GestureDetector(
+        onTap: () {
           setState(() {
             tipoSeleccionado = tipo;
             // Al cambiar el tipo se limpia la categoría elegida.
             categoriaIdSeleccionada = null;
           });
         },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: seleccionado
+                ? (esIngreso ? Colors.green.shade100 : Colors.red.shade100)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            child: Text(
+              tipo,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: seleccionado
+                    ? (esIngreso ? Colors.green.shade800 : Colors.red.shade800)
+                    : Colors.black54,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -164,12 +186,17 @@ class _MovimientoFormState extends State<MovimientoForm> {
 
                   const SizedBox(height: 10),
 
-                  Row(
-                    children: [
-                      chipTipo('Ingreso', colorIngreso),
-                      const SizedBox(width: 10),
-                      chipTipo('Gasto', colorGasto),
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      children: [
+                        chipTipo('Ingreso', colorIngreso),
+                        chipTipo('Gasto', colorGasto),
+                      ],
+                    ),
                   ),
 
                   const SizedBox(height: 20),
@@ -219,9 +246,6 @@ class _MovimientoFormState extends State<MovimientoForm> {
                           ? categoriaIdSeleccionada
                           : null,
                       hint: const Text('Selecciona una categoría'),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
                       items: categorias.map((categoria) {
                         return DropdownMenuItem<String>(
                           value: categoria.id,
@@ -270,14 +294,15 @@ class _MovimientoFormState extends State<MovimientoForm> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.grey.shade50,
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(formatearFecha(fechaSeleccionada)),
-                          const Icon(Icons.calendar_month),
+                          const Icon(Icons.calendar_today, color: colorAzul),
                         ],
                       ),
                     ),

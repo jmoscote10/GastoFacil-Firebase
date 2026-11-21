@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constants.dart';
+
 class CustomTextField extends StatelessWidget {
   final String label;
   final TextEditingController controller;
@@ -31,14 +33,11 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       validator: validator,
       obscureText: ocultarTexto,
+      // Los colores, el relleno gris y los bordes redondeados vienen del
+      // tema en main.dart (mismo estilo del segundo corte).
       decoration: InputDecoration(
         labelText: label,
-        suffixIcon: icono == null ? null : Icon(icono),
-        border: const OutlineInputBorder(),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 12,
-        ),
+        suffixIcon: icono == null ? null : Icon(icono, color: colorAzul),
       ),
     );
   }

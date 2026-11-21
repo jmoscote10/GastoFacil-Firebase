@@ -47,6 +47,35 @@ class _HistorialScreenState extends State<HistorialScreen> {
     }).toList();
   }
 
+  // Filtro con el estilo del segundo corte: gris si no está elegido y
+  // de color (azul grisáceo, verde o rojo) cuando está elegido.
+  Widget chipFiltro(String titulo, String valor, Color color) {
+    bool seleccionado = filtroSeleccionado == valor;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          filtroSeleccionado = valor;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        decoration: BoxDecoration(
+          color: seleccionado ? color : Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          titulo,
+          style: TextStyle(
+            color: seleccionado ? Colors.white : Colors.black87,
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     buscarController.dispose();
@@ -59,8 +88,8 @@ class _HistorialScreenState extends State<HistorialScreen> {
       appBar: AppBar(
         title: const Text('Historial'),
         backgroundColor: Colors.white,
-        foregroundColor: colorPrincipal,
-        elevation: 1,
+        foregroundColor: Colors.black87,
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -79,47 +108,11 @@ class _HistorialScreenState extends State<HistorialScreen> {
 
             Row(
               children: [
-                Expanded(
-                  child: ChoiceChip(
-                    label: const Text('Todos'),
-                    selected: filtroSeleccionado == 'Todos',
-                    onSelected: (seleccionado) {
-                      setState(() {
-                        filtroSeleccionado = 'Todos';
-                      });
-                    },
-                  ),
-                ),
-
-                const SizedBox(width: 6),
-
-                Expanded(
-                  child: ChoiceChip(
-                    label: const Text('Ingresos'),
-                    selected: filtroSeleccionado == 'Ingreso',
-                    selectedColor: colorIngreso.withValues(alpha: 0.25),
-                    onSelected: (seleccionado) {
-                      setState(() {
-                        filtroSeleccionado = 'Ingreso';
-                      });
-                    },
-                  ),
-                ),
-
-                const SizedBox(width: 6),
-
-                Expanded(
-                  child: ChoiceChip(
-                    label: const Text('Gastos'),
-                    selected: filtroSeleccionado == 'Gasto',
-                    selectedColor: colorGasto.withValues(alpha: 0.25),
-                    onSelected: (seleccionado) {
-                      setState(() {
-                        filtroSeleccionado = 'Gasto';
-                      });
-                    },
-                  ),
-                ),
+                chipFiltro('Todos', 'Todos', colorTodos),
+                const SizedBox(width: 8),
+                chipFiltro('Ingresos', 'Ingreso', colorIngreso),
+                const SizedBox(width: 8),
+                chipFiltro('Gastos', 'Gasto', colorGasto),
               ],
             ),
 
@@ -212,7 +205,7 @@ class _HistorialScreenState extends State<HistorialScreen> {
         onPressed: () {
           Navigator.pop(context);
         },
-        backgroundColor: colorPrincipal,
+        backgroundColor: colorVerde,
         foregroundColor: Colors.white,
         child: const Icon(Icons.home),
       ),

@@ -48,7 +48,6 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
                       controller: nombreController,
                       decoration: const InputDecoration(
                         labelText: 'Nombre',
-                        border: OutlineInputBorder(),
                       ),
                       validator: (valor) {
                         if (valor == null || valor.trim().isEmpty) {
@@ -66,9 +65,7 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
                             child: ChoiceChip(
                               label: const Text('Ingreso'),
                               selected: tipo == 'Ingreso',
-                              selectedColor: colorIngreso.withValues(
-                                alpha: 0.25,
-                              ),
+                              selectedColor: Colors.green.shade100,
                               onSelected: (seleccionado) {
                                 setStateDialogo(() {
                                   tipo = 'Ingreso';
@@ -81,7 +78,7 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
                             child: ChoiceChip(
                               label: const Text('Gasto'),
                               selected: tipo == 'Gasto',
-                              selectedColor: colorGasto.withValues(alpha: 0.25),
+                              selectedColor: Colors.red.shade100,
                               onSelected: (seleccionado) {
                                 setStateDialogo(() {
                                   tipo = 'Gasto';
@@ -141,7 +138,7 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
       }
     } catch (error) {
       if (mounted) {
-        mostrarMensaje(context, AuthService.mensajeError(error), colorGasto);
+        mostrarMensaje(context, AuthService.mensajeError(error), colorError);
       }
     }
   }
@@ -157,7 +154,7 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
         mostrarMensaje(
           context,
           'No se puede eliminar: hay movimientos con esta categoría',
-          colorGasto,
+          colorError,
         );
         return;
       }
@@ -192,7 +189,7 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
       }
     } catch (error) {
       if (mounted) {
-        mostrarMensaje(context, AuthService.mensajeError(error), colorGasto);
+        mostrarMensaje(context, AuthService.mensajeError(error), colorError);
       }
     }
   }
@@ -203,8 +200,8 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
       appBar: AppBar(
         title: const Text('Categorías'),
         backgroundColor: Colors.white,
-        foregroundColor: colorPrincipal,
-        elevation: 1,
+        foregroundColor: Colors.black87,
+        elevation: 0,
       ),
       body: StreamBuilder<List<CategoriaModel>>(
         stream: streamCategorias,
@@ -273,7 +270,7 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => abrirFormulario(),
-        backgroundColor: colorPrincipal,
+        backgroundColor: colorVerde,
         foregroundColor: Colors.white,
         child: const Icon(Icons.add),
       ),

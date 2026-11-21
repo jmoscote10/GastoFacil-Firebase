@@ -44,7 +44,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
       }
     } catch (error) {
       if (mounted) {
-        mostrarMensaje(context, AuthService.mensajeError(error), colorGasto);
+        mostrarMensaje(context, AuthService.mensajeError(error), colorError);
         setState(() {
           cargando = false;
         });
@@ -67,8 +67,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
       appBar: AppBar(
         title: const Text('Crear cuenta'),
         backgroundColor: Colors.white,
-        foregroundColor: colorPrincipal,
-        elevation: 1,
+        foregroundColor: Colors.black87,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

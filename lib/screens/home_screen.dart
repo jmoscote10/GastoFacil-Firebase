@@ -74,18 +74,61 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Tarjeta gris clara de ingresos o gastos (estilo del segundo corte).
+  Widget tarjetaResumen(String titulo, String valor, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        children: [
+          Text(
+            titulo,
+            style: const TextStyle(color: Colors.black54, fontSize: 13),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            valor,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        foregroundColor: colorPrincipal,
-        elevation: 1,
-        title: const Row(
+        foregroundColor: Colors.black87,
+        elevation: 0,
+        titleSpacing: 16,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.account_balance_wallet, color: colorPrincipal),
-            SizedBox(width: 8),
-            Text(nombreApp, style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(
+              height: 32,
+              width: 32,
+              child: Image.asset(
+                rutaLogo,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.account_balance_wallet,
+                  color: colorVerde,
+                  size: 28,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Text(nombreApp),
           ],
         ),
         actions: [
@@ -142,18 +185,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 12),
 
-              CustomContainer(
-                color: colorSecundario,
+              // Tarjeta de saldo verde, igual a la del segundo corte.
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: colorVerde,
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
                       'Disponible',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '\$${saldo.toStringAsFixed(0)} COP',
+                      '\$ ${formatearMonto(saldo)} COP',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 28,
@@ -169,46 +218,20 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: CustomContainer(
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Ingresos',
-                            style: TextStyle(color: colorIngreso),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            '+ \$${ingresos.toStringAsFixed(0)}',
-                            style: const TextStyle(
-                              color: colorIngreso,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                    child: tarjetaResumen(
+                      'Ingresos',
+                      '+ \$ ${formatearMonto(ingresos)}',
+                      colorIngreso,
                     ),
                   ),
 
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 12),
 
                   Expanded(
-                    child: CustomContainer(
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Gastos',
-                            style: TextStyle(color: colorGasto),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            '- \$${gastos.toStringAsFixed(0)}',
-                            style: const TextStyle(
-                              color: colorGasto,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                    child: tarjetaResumen(
+                      'Gastos',
+                      '- \$ ${formatearMonto(gastos)}',
+                      colorGasto,
                     ),
                   ),
                 ],
@@ -225,7 +248,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   TextButton(
                     onPressed: () => abrirPantalla(const HistorialScreen()),
-                    child: const Text('Ver más'),
+                    child: const Text(
+                      'Ver más',
+                      style: TextStyle(
+                        color: colorIngreso,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -262,14 +291,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => abrirPantalla(const RegistroMovimientoScreen()),
-        backgroundColor: colorPrincipal,
+        backgroundColor: colorVerde,
         foregroundColor: Colors.white,
-        child: const Icon(Icons.add),
+        elevation: 4,
+        child: const Icon(Icons.add, size: 28),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
-        selectedItemColor: colorPrincipal,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+        selectedItemColor: colorVerde,
+        unselectedItemColor: Colors.grey.shade500,
         type: BottomNavigationBarType.fixed,
         onTap: (indice) {
           if (indice == 1) {

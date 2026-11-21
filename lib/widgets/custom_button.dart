@@ -16,21 +16,35 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Mismo estilo del botón del segundo corte: verde, sin sombra y redondeado.
+    const TextStyle estiloTexto = TextStyle(
+      color: Colors.white,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    );
+
     return SizedBox(
       width: double.infinity,
-      height: 48,
+      height: 50,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: colorPrincipal,
+          backgroundColor: colorVerde,
           foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
         child: icono == null
-            ? Text(texto)
+            ? Text(texto, style: estiloTexto)
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(icono), const SizedBox(width: 8), Text(texto)],
+                children: [
+                  Icon(icono),
+                  const SizedBox(width: 8),
+                  Text(texto, style: estiloTexto),
+                ],
               ),
       ),
     );

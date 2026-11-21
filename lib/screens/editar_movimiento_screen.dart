@@ -19,8 +19,8 @@ class EditarMovimientoScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Editar movimiento'),
         backgroundColor: Colors.white,
-        foregroundColor: colorPrincipal,
-        elevation: 1,
+        foregroundColor: Colors.black87,
+        elevation: 0,
       ),
       body: MovimientoForm(
         movimiento: movimiento,
@@ -43,7 +43,7 @@ class EditarMovimientoScreen extends StatelessWidget {
               mostrarMensaje(
                 context,
                 AuthService.mensajeError(error),
-                colorGasto,
+                colorError,
               );
             }
           }

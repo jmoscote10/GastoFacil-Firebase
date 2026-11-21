@@ -17,8 +17,8 @@ class RegistroMovimientoScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Registrar movimiento'),
         backgroundColor: Colors.white,
-        foregroundColor: colorPrincipal,
-        elevation: 1,
+        foregroundColor: Colors.black87,
+        elevation: 0,
       ),
       body: MovimientoForm(
         textoBoton: 'Guardar movimiento',
@@ -40,7 +40,7 @@ class RegistroMovimientoScreen extends StatelessWidget {
               mostrarMensaje(
                 context,
                 AuthService.mensajeError(error),
-                colorGasto,
+                colorError,
               );
             }
           }

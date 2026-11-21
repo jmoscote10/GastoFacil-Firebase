@@ -67,7 +67,7 @@ class _DetalleMovimientoScreenState extends State<DetalleMovimientoScreen> {
       }
     } catch (error) {
       if (mounted) {
-        mostrarMensaje(context, AuthService.mensajeError(error), colorGasto);
+        mostrarMensaje(context, AuthService.mensajeError(error), colorError);
         setState(() {
           eliminando = false;
         });
@@ -102,8 +102,8 @@ class _DetalleMovimientoScreenState extends State<DetalleMovimientoScreen> {
       appBar: AppBar(
         title: const Text('Detalle del movimiento'),
         backgroundColor: Colors.white,
-        foregroundColor: colorPrincipal,
-        elevation: 1,
+        foregroundColor: Colors.black87,
+        elevation: 0,
       ),
       body: StreamBuilder<MovimientoModel?>(
         stream: streamMovimiento,
@@ -141,7 +141,7 @@ class _DetalleMovimientoScreenState extends State<DetalleMovimientoScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '$signo \$${movimiento.valor.toStringAsFixed(0)} COP',
+                      '$signo \$ ${formatearMonto(movimiento.valor)} COP',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 28,
@@ -198,18 +198,22 @@ class _DetalleMovimientoScreenState extends State<DetalleMovimientoScreen> {
                   ? const Center(child: CircularProgressIndicator())
                   : SizedBox(
                       width: double.infinity,
-                      height: 48,
+                      height: 50,
                       child: OutlinedButton.icon(
                         onPressed: () => eliminar(movimiento),
                         icon: const Icon(Icons.delete, color: colorGasto),
                         label: const Text(
                           'Eliminar',
-                          style: TextStyle(color: colorGasto),
+                          style: TextStyle(
+                            color: colorGasto,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         style: OutlinedButton.styleFrom(
                           side: const BorderSide(color: colorGasto),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
