@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "404703074335",
+    "project_id": "gastofacilact",
+    "storage_bucket": "gastofacilact.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404703074335:android:5af9ef052dc2660cb45d2a",
+        "android_client_info": {
+          "package_name": "com.example.gasto_facil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVlq5OrGof445OYTcjAlq5lP-pDPhr4TQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
