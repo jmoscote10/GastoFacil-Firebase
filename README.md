@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/Logo_Gastofacil.jpeg" alt="Logo GastoFácil" width="140">
+</p>
+
 # GastoFácil – Firebase
 
 Aplicación móvil en Flutter para registrar y controlar ingresos y gastos personales.
